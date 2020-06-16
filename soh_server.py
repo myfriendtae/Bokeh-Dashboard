@@ -2,6 +2,7 @@ from pandas import read_csv
 from pandas import to_datetime
 
 from os.path import dirname, join
+from settings import FILE_LOCATION
 
 from scipy import stats
 
@@ -52,8 +53,7 @@ def make_status2(row):
         return 'Unidentified'
 
 # Load data
-source_data = 'G:/Customer Documentation Team/Allocations Management/Database/physical_soh.csv'
-df = read_csv(source_data)
+df = read_csv(FILE_LOCATION)
 df = df[~df['batch_loc'].isin(['lab', 'CCLMISSING', 'HMISSING', 'OMISSING', 'VMISSING', 'GMISSING', 'RMISSING', 'BMISSING', 'CHPMISSING', 'CDDMISSING'])]
 df['item'] = df['item'].astype(int).astype(str)
 df['fill_mapper'] = df.apply(lambda row: select_fill_color(row), axis=1)
